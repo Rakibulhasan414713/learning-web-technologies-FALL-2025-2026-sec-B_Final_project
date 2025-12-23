@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Background Changer</title>
+</head>
+
+<!-- Restore saved background when page loads -->
+<body style="transition: background 0.3s;"
+      onload="
+        if(localStorage.bgURL){
+            document.body.style.backgroundImage = 'url(' + localStorage.bgURL + ')';
+            document.body.style.backgroundSize = 'cover';
+            document.body.style.backgroundAttachment = 'fixed';
+            document.getElementById('bgInput').value = localStorage.bgURL;
+        }
+      "
+>
+
+<input 
+    id="bgInput"
+    type="text" 
+    placeholder="Enter image URL only"
+    style="padding:10px; font-size:16px; width:300px;"
+    oninput="
+        if(this.value.indexOf('http') === 0){
+            document.body.style.backgroundImage = 'url(' + this.value + ')';
+            document.body.style.backgroundSize = 'cover';
+            document.body.style.backgroundAttachment = 'fixed';
+            localStorage.bgURL = this.value;   // SAVE AFTER REFRESH
+        } else {
+            this.value = localStorage.bgURL || '';
+        }
+    "
+>
+
+</body>
+</html>
+
